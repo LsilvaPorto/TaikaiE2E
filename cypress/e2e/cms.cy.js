@@ -12,9 +12,10 @@ describe('Hackathons spec', () => {
     cms.fundHackathon();
     cms.AllowSelfVote();
     cms.setRegistration();
+    cms.initHackathon();
     cms.createGlobalJury();
-    // cms.fundGlobalJury();
-    
+    cms.fundGlobalJury();
+
   })
 
 })

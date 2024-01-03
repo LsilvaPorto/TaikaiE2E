@@ -35,5 +35,7 @@ export default class Locators {
         fundGlobalJuryButton: '[data-testid="icon-button"] > .icon > path',
         ulActionMenuFund: '[data-testid="ul-action-menu"] > :nth-child(2) > a',
         globalJuryAmountInput: ':nth-child(5) > .styles__TextFieldInputStyle-sc-1hxcxbo-0',
+        stepList: '[data-testid="step-list"] > a > span',
+        
     }
 }

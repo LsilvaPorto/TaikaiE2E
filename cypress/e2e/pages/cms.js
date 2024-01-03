@@ -54,7 +54,6 @@ export default class CMSPages extends Locators {
         cy.get(this.locators.challenges).click();
     }
     fundHackathon() {
-        //fund hackathon
         cy.get(this.locators.tableActionMenu).click();
         cy.get(this.locators.ulActionMenu).click();
         cy.get(this.locators.fundKaiAmount).clear().type(this.createValue());
@@ -104,6 +103,13 @@ export default class CMSPages extends Locators {
         cy.get(this.locators.timePickerInput).type('00:00');
         cy.contains('Create Form').click();
         cy.get('.styles__FooterStyle-sc-1xdsng6-0 > .gjQFLT').click();
+    }
+
+    initHackathon() {
+        cy.get(this.locators.stepList).click();
+        cy.get(':nth-child(1) > :nth-child(7) > div > [data-testid] > .icon').click();
+        cy.get(':nth-child(5) > :nth-child(7) > div > [data-testid="ul-action-menu"] > :nth-child(1) > a').click();
+        cy.get('.gjQFLT').click();
     }
 
     createGlobalJury(user = 'lporto') {
