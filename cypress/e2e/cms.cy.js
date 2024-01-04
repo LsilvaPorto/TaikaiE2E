@@ -15,7 +15,6 @@ describe('Hackathons spec', () => {
     cms.initHackathon();
     cms.createGlobalJury();
     cms.fundGlobalJury();
-
   })
 
 })

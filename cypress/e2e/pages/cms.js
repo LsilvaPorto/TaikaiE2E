@@ -51,7 +51,7 @@ export default class CMSPages extends Locators {
         cy.get(':nth-child(6) > a > span').click();
         cy.get('.styles__FooterStyle-sc-1xdsng6-0 > .gjQFLT').click();
         //go to published page
-        cy.get(this.locators.challenges).click();
+        cy.get(this.locators.challenges).click().wait(1000);
     }
     fundHackathon() {
         cy.get(this.locators.tableActionMenu).click();
@@ -65,7 +65,7 @@ export default class CMSPages extends Locators {
         cy.get(this.locators.settingsButton).click();
         cy.get(this.locators.advancedButton).click();
         cy.get(this.locators.editWebhookButton).click();
-        cy.get(':nth-child(3) > .styles__CheckboxWrapper-sc-w5t014-0 > .styles__Checkmark-sc-w5t014-3').click();
+        cy.get(this.locators.allowSelfVoteCheckbox).click();
         cy.get(this.locators.challengeModerateProjCheckbox).check();
         cy.get(this.locators.updateAdvancedConfigModalButton).click();
     }
@@ -101,32 +101,32 @@ export default class CMSPages extends Locators {
         cy.get(this.locators.firstTimePickerInput).type('00:00');
         cy.get(this.locators.datePickerInput).type(this.createFutureDate(this.getDate()));
         cy.get(this.locators.timePickerInput).type('00:00');
-        cy.contains('Create Form').click();
-        cy.get('.styles__FooterStyle-sc-1xdsng6-0 > .gjQFLT').click();
+        cy.get(this.locators.createFormButton).click();
+        cy.get(this.locators.secondCreateFormButton).click();
     }
 
     initHackathon() {
         cy.get(this.locators.stepList).click();
-        cy.get(':nth-child(1) > :nth-child(7) > div > [data-testid] > .icon').click();
-        cy.get(':nth-child(5) > :nth-child(7) > div > [data-testid="ul-action-menu"] > :nth-child(1) > a').click();
-        cy.get('.gjQFLT').click();
+        cy.get(this.locators.firstStepOption).click();
+        cy.get(this.locators.changeToThisStepButton).click();
+        cy.get(this.locators.confirmButton).click();
     }
 
     createGlobalJury(user = 'lporto') {
         cy.get(this.locators.globalJuriesButton).click();
         cy.get(this.locators.globalTracksButton).click();
         cy.get(this.locators.addBackerButton).click();
-        cy.get('#react-select-3-input').type(user);
-        cy.get('#react-select-3-option-0').click();
-        cy.get('.gjQFLT').click();
+        cy.get(this.locators.searchMemberInput).type(user);
+        cy.get(this.locators.firstMemberSelection).click();
+        cy.get(this.locators.confirmButton).click();
     }
 
     fundGlobalJury() {
         cy.get(this.locators.fundGlobalJuryButton).click();
         cy.get(this.locators.ulActionMenuFund).click();
         cy.get(this.locators.globalJuryAmountInput).clear().type(this.createValue());
-        cy.get('.gjQFLT').click().wait(1000);
-        cy.get('.gjQFLT').click();
+        cy.get(this.locators.confirmButton).click().wait(1000);
+        cy.get(this.locators.confirmButton).click();
     }
 
 
