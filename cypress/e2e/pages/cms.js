@@ -30,16 +30,16 @@ export default class CMSPages extends Locators {
         //slug name
         cy.get(this.locators.challengeSlugInput).type(slug);
         //select taikai as organization
-        cy.get('#react-select-2-input').type('taikai');
-        cy.get('#react-select-2-option-0').click();
+        cy.get(this.locators.companyInput).type('taikai');
+        cy.get(this.locators.companyFirstOption).click();
         //input prize
         cy.get(this.locators.challengePrizeInput).type(this.createValue());
         //select industry
-        cy.get('#react-select-3-input').click();
-        cy.get('#react-select-3-option-5').click();
+        cy.get(this.locators.industryInput).click();
+        cy.get(this.locators.industryOption).click();
         //select timezone
-        cy.get('#react-select-4-input').type('portugal');
-        cy.get('#react-select-4-option-540').click();
+        cy.get(this.locators.timezoneInput).type('portugal');
+        cy.get(this.locators.timezoneOption).click();
         //insert description
         cy.get(this.locators.challengeDescriptionInput).type(this.createRamdomWords(10));
         //click create challenge button
@@ -47,9 +47,9 @@ export default class CMSPages extends Locators {
 
     }
     publishHackathon() {
-        cy.get(this.locators.iconButton).click();
-        cy.get(':nth-child(6) > a > span').click();
-        cy.get('.styles__FooterStyle-sc-1xdsng6-0 > .gjQFLT').click();
+        cy.get(this.locators.iconButton).first().click();
+        cy.get(this.locators.publishHackathonButton).click();
+        cy.get(this.locators.confirmPublishHackathonButton).click();
         //go to published page
         cy.get(this.locators.challenges).click().wait(1000);
     }
