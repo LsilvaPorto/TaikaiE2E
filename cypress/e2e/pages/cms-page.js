@@ -1,8 +1,8 @@
-import Locators from './locators';
+import CMSLocators from './cms-locators';
 const { faker } = require('@faker-js/faker');
 
 
-export default class CMSPages extends Locators {
+export default class CMSPages extends CMSLocators {
     login(username = Cypress.env('USERNAME'), password = Cypress.env('PASSWORD')) {
         cy.get(this.locators.loginUsernameInput).type(username);
         cy.get(this.locators.loginPasswordInput).type(password);
@@ -50,15 +50,15 @@ export default class CMSPages extends Locators {
         cy.get(this.locators.iconButton).first().click();
         cy.get(this.locators.publishHackathonButton).click();
         cy.get(this.locators.confirmPublishHackathonButton).click();
-        //go to published page
-        cy.get(this.locators.challenges).click().wait(1000);
     }
     fundHackathon() {
+        //go to published page
+        cy.get(this.locators.challenges).click().wait(1000);
         cy.get(this.locators.tableActionMenu).click();
         cy.get(this.locators.ulActionMenu).click();
         cy.get(this.locators.fundKaiAmount).clear().type(this.createValue());
-        cy.get(this.locators.fundModalButton).click();
-        cy.get(this.locators.challengeNameCol).click();
+        cy.get(this.locators.fundModalButton).click().wait(2000);
+        cy.get(this.locators.challengeNameCol).first().click();
     }
 
     AllowSelfVote() {
@@ -66,7 +66,6 @@ export default class CMSPages extends Locators {
         cy.get(this.locators.advancedButton).click();
         cy.get(this.locators.editWebhookButton).click();
         cy.get(this.locators.allowSelfVoteCheckbox).click();
-        cy.get(this.locators.challengeModerateProjCheckbox).check();
         cy.get(this.locators.updateAdvancedConfigModalButton).click();
     }
 

@@ -1,4 +1,4 @@
-export default class Locators {
+export default class CMSLocators {
     locators = {
         loginUsernameInput: '[data-testid="login-username-input"]',
         loginPasswordInput: '[data-testid="login-password-input"]',
@@ -24,7 +24,7 @@ export default class Locators {
         ulActionMenu: '[data-testid="ul-action-menu"]',
         fundKaiAmount: '[data-testid="fund-kai-amount"]',
         fundModalButton: '[data-testid="fund-modal-button"]',
-        challengeNameCol: ':nth-child(1) > [data-testid="td-challengeNameCol"]',
+        challengeNameCol: '[data-testid="td-challengeNameCol"]',
         settingsButton: '[data-testid="settings"] > button > span',
         advancedButton: '[data-testid="advanced"]',
         editWebhookButton: ':nth-child(6) > .styles__SectionHeaderStyle-sc-1v4zmt5-0 > .styles__SectionHeaderOptions-sc-1v4zmt5-1 > [data-testid="edit-webhook-button"]',
@@ -32,7 +32,6 @@ export default class Locators {
         firstStepOption: ':nth-child(1) > :nth-child(7) > div > [data-testid] > .icon',
         changeToThisStepButton: ':nth-child(5) > :nth-child(7) > div > [data-testid="ul-action-menu"] > :nth-child(1) > a',
         confirmButton: '.gjQFLT',
-        challengeModerateProjCheckbox: '[data-testid="challenge-moderate-proj-checkbox"]',
         updateAdvancedConfigModalButton: '[data-testid="update-advanced-config-modal-button"]',
         stepsButton: '[data-testid="steps"] > button > span',
         stepRegistration: '[data-testid="step-registration"]',
