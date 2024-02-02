@@ -96,10 +96,10 @@ export default class CMSPages extends CMSLocators {
         cy.get(this.locators.stepsButton).click();
         cy.get(this.locators.stepRegistration).click();
         cy.get(this.locators.editRegistrationDatesButton).click();
-        cy.get(this.locators.firstDatePickerInput).type(this.getDate());
-        cy.get(this.locators.firstTimePickerInput).type('00:00');
-        cy.get(this.locators.datePickerInput).type(this.createFutureDate(this.getDate()));
-        cy.get(this.locators.timePickerInput).type('00:00');
+        cy.get(this.locators.startDatePickerInput).type(this.getDate());
+        cy.get(this.locators.startTimePickerInput).type('00:00');
+        cy.get(this.locators.endDatePickerInput).type(this.createFutureDate(this.getDate()));
+        cy.get(this.locators.endTimePickerInput).type('00:00');
         cy.get(this.locators.createFormButton).click();
         cy.get(this.locators.secondCreateFormButton).click();
     }
@@ -128,6 +128,20 @@ export default class CMSPages extends CMSLocators {
         cy.get(this.locators.confirmButton).click();
     }
 
+    createSoloTracks(numberOfTracks = 2) {
+        for (let index = 0; index < numberOfTracks; index++) {
+            
+            
+        }
+    }
 
+    createGlobalTracks(numberOfTracks = 2) {
+        for (let index = 8; index < numberOfTracks; index++) {
+            cy.get(':nth-child(2) > .styles__SectionHeaderStyle-sc-1v4zmt5-0 > .styles__SectionHeaderOptions-sc-1v4zmt5-1 > [data-testid="new-step-button"]').should('be.enabled').click();
+            cy.get(':nth-child(1) > .styles__TextFieldInputStyle-sc-1hxcxbo-0').type(`00${index}`);
+            cy.get('.styles__SectionHeaderOptions-sc-1v4zmt5-1 > [data-testid]').should('be.visible').click();
+
+        }
+    }
 
 }
