@@ -1,5 +1,5 @@
-export default class CMSLocators {
-    locators = {
+export default class Locators {
+    cms = {
         loginUsernameInput: '[data-testid="login-username-input"]',
         loginPasswordInput: '[data-testid="login-password-input"]',
         loginSubmitButton: '[data-testid="login-submit-button"]',
@@ -52,5 +52,9 @@ export default class CMSLocators {
         globalJuryAmountInput: ':nth-child(5) > .styles__TextFieldInputStyle-sc-1hxcxbo-0',
         stepList: '[data-testid="step-list"]',
 
+    }
+
+    frontend = {
+        
     }
 }

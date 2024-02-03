@@ -1,10 +1,10 @@
-import CMSPages from './pages/cms-page';
-const cms = new CMSPages();
+import CMSChallengePage from './pages/cms/cms-challenge-page';
+const cms = new CMSChallengePage();
 
 describe('CMS specs', () => {
   before(() => {
     cy.visit('');
-    cms.login();
+    cy.cmsLogin();
   })
   it('create complete Hackathon', () => {
     cms.createHackathon();
