@@ -3,7 +3,7 @@ const cms = new CMSChallengePage();
 
 describe('CMS specs', () => {
   before(() => {
-    cy.visit('');
+    cy.visit(':3000');
     cy.cmsLogin();
   })
   it('create complete Hackathon', () => {

@@ -23,9 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
+import 'cypress-file-upload';
 import Locators from "../e2e/pages/locators";
 const locators = new Locators();
+
+const { faker } = require('@faker-js/faker');
 
 Cypress.Commands.add('cmsLogin', (username = Cypress.env('USERNAME'), password = Cypress.env('PASSWORD')) => {
     cy.get(locators.cms.loginUsernameInput).type(username);
@@ -40,9 +42,11 @@ Cypress.Commands.add('cmsLogout', () => {
 });
 
 Cypress.Commands.add('frontendLogin', (username = Cypress.env('USERNAME'), password = Cypress.env('PASSWORD')) => {
+    cy.get('a.button').contains("Log in").click({ force: true });
     cy.get('[data-testid=login-email-input]').type(username);
     cy.get('[data-testid=login-password-input]').type(password);
     cy.get('[data-testid=login-submit-button]').click();
+    cy.get('#rcc-confirm-button').click();
 });
 
 Cypress.Commands.add('frontendLogout', () => {
@@ -56,4 +60,18 @@ Cypress.Commands.add('uploadFile', (fileName, locator) => {
             mimeType: 'image/svg+xml'
         });
     });
+});
+
+Cypress.Commands.add('createParagraph', (numberOfparagraphs = 1) => {
+    const paragraph = faker.lorem.paragraph(numberOfparagraphs);
+    return paragraph.toString();
+});
+
+Cypress.Commands.add('createRandomInt', (numbers) => {
+    return Math.floor(Math.random() * (numbers + 1));
+});
+
+Cypress.Commands.add('createRandomWords', (numberOfWords = 2) => {
+    const name = faker.lorem.words(numberOfWords);
+    return name.toString();
 });

@@ -4,10 +4,10 @@ module.exports = defineConfig({
   env: {...process.env },
   viewportWidth: 1688,
   viewportHeight: 768,
-  defaultCommandTimeout: 30000,
+  defaultCommandTimeout: 15000,
   e2e: {
     experimentalStudio: true,
-    baseUrl: "https://gaia.taikai.network:3000/",
+    baseUrl: "https://gaia.taikai.network",
     setupNodeEvents(on, config) {
     },
   },

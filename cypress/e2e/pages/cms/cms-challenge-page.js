@@ -9,39 +9,42 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.loginSubmitButton).click();
     }
 
-    createRamdomWords(numberOfWords = 3) {
-        const name = faker.lorem.words(numberOfWords);
-        return name.toString();
-    }
-
     createValue(max = 1000) {
         const value = faker.number.int({ max });
         return value;
     }
 
     createHackathon() {
-        const name = this.createRamdomWords()
-        const slug = name.trim().replace(/ /g, '-');
-        //open hackathons page 
-        cy.get(this.cms.challengesId).click();
-        cy.get(this.cms.createChallengeButton).click();
-        //hackathon name
-        cy.get(this.cms.challengeNameInput).type(name);
-        //slug name
-        cy.get(this.cms.challengeSlugInput).type(slug);
+        cy.createRandomWords().then((text) => {
+            const name = text;
+            const slug = name.trim().replace(/ /g, '-');
+            //open hackathons page 
+            cy.get(this.cms.challengesId).click();
+            cy.get(this.cms.createChallengeButton).click();
+            //hackathon name
+            cy.get(this.cms.challengeNameInput).type(name);
+            //slug name
+            cy.get(this.cms.challengeSlugInput).type(slug);
+        })
         //select taikai as organization
-        cy.get(this.cms.companyInput).type('taikai');
-        cy.get(this.cms.companyFirstOption).click();
+        cy.get(this.cms.selectInput).eq(0).click();// or type taikai .type('taikai');
+        cy.createRandomInt(19).then((int) => {
+            cy.get(this.cms.optionInput).eq(int).click(); //then select the first option cy.get(this.cms.optionInput).click();
+        })
         //input prize
         cy.get(this.cms.challengePrizeInput).type(this.createValue());
         //select industry
-        cy.get(this.cms.industryInput).click();
-        cy.get(this.cms.industryOption).click();
+        cy.get(this.cms.selectInput).eq(1).click();
+        cy.createRandomInt(23).then((int) => {
+            cy.get(this.cms.optionInput).eq(int).click();
+        })
         //select timezone
-        cy.get(this.cms.timezoneInput).type('portugal');
-        cy.get(this.cms.timezoneOption).click();
+        cy.get(this.cms.selectInput).eq(2).type('portugal');
+        cy.get(this.cms.optionInput).click();
         //insert description
-        cy.get(this.cms.challengeDescriptionInput).type(this.createRamdomWords(10));
+        cy.createRandomWords(10).then((text) => {
+            cy.get(this.cms.challengeDescriptionInput).type(text);
+        })
         //click create challenge button
         cy.get(this.cms.createNewChallengeButton).click();
 
@@ -51,6 +54,7 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.publishHackathonButton).click();
         cy.get(this.cms.confirmPublishHackathonButton).click();
     }
+
     fundHackathon() {
         //go to published page
         cy.get(this.cms.challenges).click().wait(1000);
@@ -58,7 +62,7 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.ulActionMenu).click();
         cy.get(this.cms.fundKaiAmount).clear().type(this.createValue());
         cy.get(this.cms.fundModalButton).click().wait(2000);
-        cy.get(this.cms.challengeNameCol).first().click();
+        cy.get(this.cms.challengeNameCol).first().should('be.visible').click({ forcece: true });
     }
 
     AllowSelfVote() {
@@ -116,7 +120,7 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.globalTracksButton).click();
         cy.get(this.cms.addBackerButton).click();
         cy.get(this.cms.searchMemberInput).type(user);
-        cy.get(this.cms.firstMemberSelection).click();
+        cy.get(this.cms.optionInput).contains(user).click();
         cy.get(this.cms.confirmButton).click();
     }
 
@@ -126,22 +130,6 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.globalJuryAmountInput).clear().type(this.createValue());
         cy.get(this.cms.confirmButton).click().wait(1000);
         cy.get(this.cms.confirmButton).click();
-    }
-
-    createSoloTracks(numberOfTracks = 2) {
-        for (let index = 0; index < numberOfTracks; index++) {
-            
-            
-        }
-    }
-
-    createGlobalTracks(numberOfTracks = 2) {
-        for (let index = 8; index < numberOfTracks; index++) {
-            cy.get(':nth-child(2) > .styles__SectionHeaderStyle-sc-1v4zmt5-0 > .styles__SectionHeaderOptions-sc-1v4zmt5-1 > [data-testid="new-step-button"]').should('be.enabled').click();
-            cy.get(':nth-child(1) > .styles__TextFieldInputStyle-sc-1hxcxbo-0').type(`00${index}`);
-            cy.get('.styles__SectionHeaderOptions-sc-1v4zmt5-1 > [data-testid]').should('be.visible').click();
-
-        }
     }
 
 }
