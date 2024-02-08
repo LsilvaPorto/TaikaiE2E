@@ -62,7 +62,7 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.ulActionMenu).click();
         cy.get(this.cms.fundKaiAmount).clear().type(this.createValue());
         cy.get(this.cms.fundModalButton).click().wait(2000);
-        cy.get(this.cms.challengeNameCol).first().should('be.visible').click({ forcece: true });
+        cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
     }
 
     AllowSelfVote() {
@@ -129,6 +129,18 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.ulActionMenuFund).click();
         cy.get(this.cms.globalJuryAmountInput).clear().type(this.createValue());
         cy.get(this.cms.confirmButton).click().wait(1000);
+        cy.get(this.cms.confirmButton).click();
+    }
+
+    changeHackathonStepTo(step) {
+        cy.get(this.cms.challengesId).click();
+        cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
+        cy.get(this.cms.stepsButton).click();
+        cy.get(this.cms.stepList).click();
+        cy.get(`tr:contains("${step}")`)   
+            .find('button')
+            .click({ force: true });
+        cy.get(this.cms.changeToThisStepButton).click();
         cy.get(this.cms.confirmButton).click();
     }
 

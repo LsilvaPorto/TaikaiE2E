@@ -1,4 +1,5 @@
-export default class TaikaiPage {
+import Locators from '../locators';
+export default class TaikaiPage extends Locators {
 
     openFirstHackathon() {
         cy.get('a[value="For participants"]').click();
@@ -49,13 +50,13 @@ export default class TaikaiPage {
     }
     changeHackathonData() {
         cy.createParagraph(5).then((text) => {
-            cy.get('h3:contains("Description") button').type(text);
+            cy.get('h3:contains("Description") button').click().type(text);
         })
-        cy.get('button[type="submit"]').click();
-        cy.uploadFile('card.png', 'h3:contains("Attachments") button').wait(10000);
+        cy.get('button[value="Save"]').click();
+        cy.get('#projectAssetFile').selectFile('cypress/fixtures/card.png', { force: true });
         cy.get('button[value="Edit"]').click();
-        cy.uploadFile('logo-taikai.png', '#coverImageFile').wait(10000);
-        cy.uploadFile('taikai-ico.png', '#logoImageFile').wait(10000);
+        cy.get('#coverImageFile').selectFile('cypress/fixtures/logo-taikai.png', { force: true });
+        cy.get('#logoImageFile').selectFile('cypress/fixtures/taikai-ico.png', { force: true });
         cy.get('button[value="Save"]').click();
 
     }

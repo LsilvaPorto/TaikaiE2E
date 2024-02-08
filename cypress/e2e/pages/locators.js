@@ -54,7 +54,7 @@ export default class Locators {
         ulActionMenu: '[data-testid="ul-action-menu"]',
         fundKaiAmount: '[data-testid="fund-kai-amount"]',
         fundModalButton: '[data-testid="fund-modal-button"]',
-        challengeNameCol: '[data-testid="td-challengeNameCol"]',
+        challengeNameColumn: '[data-testid="td-challengeNameCol"]',
         settingsButton: '[data-testid="settings"] > button > span',
         advancedButton: '[data-testid="advanced"]',
         editWebhookButton: ':nth-child(6) > .styles__SectionHeaderStyle-sc-1v4zmt5-0 > .styles__SectionHeaderOptions-sc-1v4zmt5-1 > [data-testid="edit-webhook-button"]',

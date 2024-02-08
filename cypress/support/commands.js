@@ -52,15 +52,6 @@ Cypress.Commands.add('frontendLogin', (username = Cypress.env('USERNAME'), passw
 Cypress.Commands.add('frontendLogout', () => {
 
 });
-Cypress.Commands.add('uploadFile', (fileName, locator) => {
-    cy.fixture(fileName).then(fileContent => {
-        cy.get(locator).attachFile({
-            fileContent: fileContent.toString(),
-            fileName: fileName,
-            mimeType: 'image/svg+xml'
-        });
-    });
-});
 
 Cypress.Commands.add('createParagraph', (numberOfparagraphs = 1) => {
     const paragraph = faker.lorem.paragraph(numberOfparagraphs);

@@ -5,14 +5,9 @@ const taikai = new TaikaiPage
 import { visitCMSPage } from './pages/url-utils';
 
 describe('Regression Test', () => {
-    // afterEach(() => {
-    //     cy.clearCookies();
-    //     cy.clearLocalStorage();
-    // })
     it('should create a hackathon successfully', () => {
         visitCMSPage();
         cy.cmsLogin();
-
         cms.createHackathon();
         // cy.contains('challenge was created').should('be.visible');
         cms.publishHackathon();
@@ -39,18 +34,18 @@ describe('Regression Test', () => {
 
     });
 
-    it.only('should create and publish a Project successfully', () => {
+    it('should create and publish a Project successfully', () => {
         cy.visit('');
         cy.frontendLogin();
         taikai.createProject();
-        // cy.get('button[value="Publish"]').should('be.visible');
-        // taikai.publishHackathon();
+        cy.get('button[value="Publish"]').should('be.visible');
+        taikai.publishHackathon();
         taikai.changeHackathonData();
     });
 
-    it('should finish a hackathon successfully', () => {
-        cy.visit('');
-        cy.frontendLogin();
-
+    it('should change hackathon to vote step successfully', () => {
+        visitCMSPage();
+        cy.cmsLogin();
+        cms.changeHackathonStepTo('Voting');
     });
 });
