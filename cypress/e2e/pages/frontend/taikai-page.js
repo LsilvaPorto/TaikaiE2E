@@ -32,15 +32,15 @@ export default class TaikaiPage extends Locators {
 
     createProject() {
         this.openFirstHackathon();
-        // cy.get('button[value="Create Project"]').first().click();
-        // cy.createRandomWords(3).then((text) => {
-        //     cy.get('#name').type(text);
-        // })
-        // cy.createParagraph(2).then((text) => {
-        //     cy.get('#teaser').type(text);
-        // })
-        // cy.get('button[value="Continue"]').click();
-        // cy.get('button[value="Create Project"]').click({ force: true });
+        cy.get('button[value="Create Project"]').first().click();
+        cy.createRandomWords(3).then((text) => {
+            cy.get('#name').type(text);
+        })
+        cy.createParagraph(2).then((text) => {
+            cy.get('#teaser').type(text);
+        })
+        cy.get('button[value="Continue"]').click();
+        cy.get('button[value="Create Project"]').click({ force: true });
     }
 
     publishHackathon() {
@@ -49,6 +49,7 @@ export default class TaikaiPage extends Locators {
 
     }
     changeHackathonData() {
+        // this.openFirstHackathon();
         cy.createParagraph(5).then((text) => {
             cy.get('h3:contains("Description") button').click().type(text);
         })
