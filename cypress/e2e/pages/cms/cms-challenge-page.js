@@ -62,6 +62,10 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.ulActionMenu).click();
         cy.get(this.cms.fundKaiAmount).clear().type(this.createValue());
         cy.get(this.cms.fundModalButton).click().wait(2000);
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
         cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
     }
 
@@ -137,7 +141,7 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
         cy.get(this.cms.stepsButton).click();
         cy.get(this.cms.stepList).click();
-        cy.get(`tr:contains("${step}")`)   
+        cy.get(`tr:contains("${step}")`)
             .find('button')
             .click({ force: true });
         cy.get(this.cms.changeToThisStepButton).click();

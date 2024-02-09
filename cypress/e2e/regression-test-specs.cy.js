@@ -26,6 +26,7 @@ describe('Regression Test', () => {
         cms.fundGlobalJury();
         cy.contains('VKAI top-up to').should('be.visible');
     });
+    
     it('should join a Hackthon successfully', () => {
         cy.visit('');
         cy.frontendLogin();
