@@ -65,7 +65,7 @@ export default class CMSChallengePage extends Locators {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
-        });
+          });
         cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
     }
 
@@ -131,7 +131,9 @@ export default class CMSChallengePage extends Locators {
     fundGlobalJury() {
         cy.get(this.cms.fundGlobalJuryButton).click();
         cy.get(this.cms.ulActionMenuFund).click();
-        cy.get(this.cms.globalJuryAmountInput).clear().type(this.createValue());
+        const value = this.createValue();
+        Cypress.env('GlobalJuryAmount', value);
+        cy.get(this.cms.globalJuryAmountInput).clear().type(value);
         cy.get(this.cms.confirmButton).click().wait(1000);
         cy.get(this.cms.confirmButton).click();
     }
@@ -141,7 +143,7 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
         cy.get(this.cms.stepsButton).click();
         cy.get(this.cms.stepList).click();
-        cy.get(`tr:contains("${step}")`)
+        cy.get(`tr:contains("${step}")`)   
             .find('button')
             .click({ force: true });
         cy.get(this.cms.changeToThisStepButton).click();

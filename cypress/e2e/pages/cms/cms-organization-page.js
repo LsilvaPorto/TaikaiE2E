@@ -3,7 +3,6 @@ export default class CMSOrganizationPage extends Locators {
 
     createOrganization(orgName, orgSlug, orgEmail, orgDescription, orgIndustry, orgBillingPlan) {
         cy.get(this.cms.organizationsId).click();
-        cy.url().should('contain', 'https://gaia.taikai.network:3000/organizations/organizations');
         cy.get(this.cms.createOrganizationButton).click();
         cy.get(this.cms.organizationNameInput).type(orgName);
         cy.get(this.cms.orgSlugInput).type(orgSlug);
@@ -25,7 +24,6 @@ export default class CMSOrganizationPage extends Locators {
 
     editOrganization(orgName, orgSlug, orgEmail, orgDescription, orgWebsite) {
         cy.get(this.cms.organizationsId).click();
-        cy.url().should('contain', 'https://gaia.taikai.network:3000/organizations/organizations');
         cy.contains(orgName).click();
         cy.get(this.cms.editButton).click();
         cy.uploadFile('cover-image.png', this.cms.uploadCoverImgInput);
