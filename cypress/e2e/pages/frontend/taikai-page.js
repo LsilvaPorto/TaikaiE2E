@@ -1,11 +1,11 @@
 import Locators from '../locators';
 export default class TaikaiPage extends Locators {
 
-    openFirstHackathon() {
+    openFirstHackathon(step = 'Registration') {
         cy.get('a[value="For participants"]').click();
         cy.get('select[name="sort-by"]').select('Most Recent');
         cy.wait(2000);
-        cy.contains("Registration").first().should('be.visible').click({ force: true });
+        cy.contains(step).first().should('be.visible').click({ force: true });
     }
 
     joinHackathon() {
@@ -46,10 +46,9 @@ export default class TaikaiPage extends Locators {
     publishHackathon() {
         cy.get('button[value="Publish"]').first().click();
         cy.get('button[value="Publish"]').eq(1).click();
-
     }
+
     changeHackathonData() {
-        // this.openFirstHackathon();
         cy.createParagraph(5).then((text) => {
             cy.get('h3:contains("Description") button').click().type(text);
         })
@@ -59,6 +58,21 @@ export default class TaikaiPage extends Locators {
         cy.get('#coverImageFile').selectFile('cypress/fixtures/logo-taikai.png', { force: true });
         cy.get('#logoImageFile').selectFile('cypress/fixtures/taikai-ico.png', { force: true });
         cy.get('button[value="Save"]').click();
-
     }
+
+    addProjectToCartAndCheckout() {
+        this.openFirstHackathon('Voting');
+        cy.contains('a', 'Projects').click();
+        cy.get('button.back-project').click();
+        cy.get('input[name="amount"]').type(1);
+        cy.get('button[value="Add to Cart"]').click();
+        cy.get('button.button[color=purple850]').click();
+        cy.get(':nth-child(1) > :nth-child(2) > :nth-child(2) > span').invoke('text').then(value => {
+            cy.get('input[name="amount"]').clear().type(value);
+        })
+        cy.get('button[value="Proceed to Checkout"]').click();
+        cy.get('input[name="isAware"]').click({ force: true });
+        cy.get('button[value="Checkout"]').click();
+    }
+
 }

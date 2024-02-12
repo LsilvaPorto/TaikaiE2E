@@ -1,5 +1,5 @@
 import Locators from '../locators'
-const { faker } = require('@faker-js/faker');
+const { faker, fa } = require('@faker-js/faker');
 
 
 export default class CMSChallengePage extends Locators {
@@ -61,15 +61,21 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.tableActionMenu).click();
         cy.get(this.cms.ulActionMenu).click();
         cy.get(this.cms.fundKaiAmount).clear().type(this.createValue());
-        cy.get(this.cms.fundModalButton).click().wait(2000);
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
+        cy.get(this.cms.fundModalButton).click();
+
+    }
+
+    getFirstHackathon() {
+        return cy.get(this.cms.challengeNameColumn).first().invoke('text').then((text) => {
+          return text;
+        });
     }
 
     AllowSelfVote() {
+        cy.get(this.cms.challengesId).click().wait(1000);
+        this.getFirstHackathon().then((hackathon) => {
+            cy.contains(hackathon).click();
+        })
         cy.get(this.cms.settingsButton).click();
         cy.get(this.cms.advancedButton).click();
         cy.get(this.cms.editWebhookButton).click();
@@ -132,7 +138,6 @@ export default class CMSChallengePage extends Locators {
         cy.get(this.cms.fundGlobalJuryButton).click();
         cy.get(this.cms.ulActionMenuFund).click();
         const value = this.createValue();
-        Cypress.env('GlobalJuryAmount', value);
         cy.get(this.cms.globalJuryAmountInput).clear().type(value);
         cy.get(this.cms.confirmButton).click().wait(1000);
         cy.get(this.cms.confirmButton).click();
@@ -140,14 +145,28 @@ export default class CMSChallengePage extends Locators {
 
     changeHackathonStepTo(step) {
         cy.get(this.cms.challengesId).click();
-        cy.get(this.cms.challengeNameColumn).first().should('be.visible').click({ forcece: true });
+        cy.get(this.cms.challengesId).click().wait(1000);
+        this.getFirstHackathon().then((hackathon) => {
+            cy.contains(hackathon).click();
+        })
         cy.get(this.cms.stepsButton).click();
-        cy.get(this.cms.stepList).click();
-        cy.get(`tr:contains("${step}")`)   
+        cy.get(this.cms.stepList).click().wait(1000);
+        cy.get(`tr:contains("${step}")`)
             .find('button')
+            .first()
             .click({ force: true });
         cy.get(this.cms.changeToThisStepButton).click();
         cy.get(this.cms.confirmButton).click();
     }
 
+    terminateHackathon() {
+        cy.get('button[value="Terminate"]').click();
+        cy.get('button[value="Yes, I\'m sure"]').click();
+    }
+
+    getHackathonName() {
+        return cy.get('.styles__BreadcrumbWrapper-sc-1b7j2ad-0 > ul > :nth-child(3) > a').invoke('text').then((name) => {
+            return name;
+        });
+    }
 }

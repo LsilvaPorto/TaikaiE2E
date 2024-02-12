@@ -26,7 +26,7 @@ describe('Regression Test', () => {
         cms.fundGlobalJury();
         cy.contains('VKAI top-up to').should('be.visible');
     });
-    
+
     it('should join a Hackthon successfully', () => {
         cy.visit('');
         cy.frontendLogin();
@@ -48,5 +48,24 @@ describe('Regression Test', () => {
         visitCMSPage();
         cy.cmsLogin();
         cms.changeHackathonStepTo('Voting');
+        cy.contains(`Changed to step: Voting with success.`)
+    });
+
+    it('should add a project to cart end vote successfully', () => {
+        cy.visit('');
+        cy.frontendLogin();
+        taikai.addProjectToCartAndCheckout();
+        cy.contains('span' ,'Your votes were submitted with success.').should('be.visible');
+    });
+
+    it('should change hackathon to Results step and finish it successfully', () => {
+        visitCMSPage();
+        cy.cmsLogin();
+        cms.changeHackathonStepTo('Results');
+        cy.contains(`Changed to step: Results with success.`);
+        cms.terminateHackathon();
+        cms.getHackathonName().then(name => {
+            cy.contains('span', `Challenge ${name} closed.`).should('be.visible');
+        });
     });
 });
