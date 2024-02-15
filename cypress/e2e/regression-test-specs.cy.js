@@ -1,6 +1,8 @@
 import CMSChallengePage from './pages/cms/cms-challenge-page';
+import CMSOrganizationPage from './pages/cms/cms-organization-page';
 import TaikaiPage from './pages/frontend/taikai-page';
-const cms = new CMSChallengePage();
+const cmsChallengePage = new CMSChallengePage();
+const cmsOrganizationPage = new CMSOrganizationPage();
 const taikai = new TaikaiPage
 import { visitCMSPage } from './pages/url-utils';
 
@@ -8,22 +10,22 @@ describe('Regression Test', () => {
     it('should create a hackathon successfully', () => {
         visitCMSPage();
         cy.cmsLogin();
-        cms.createHackathon();
+        cmsChallengePage.createHackathon();
         // cy.contains('challenge was created').should('be.visible');
-        cms.publishHackathon();
+        cmsChallengePage.publishHackathon();
         cy.contains('published with success').should('be.visible');
-        cms.fundHackathon();
+        cmsChallengePage.fundHackathon();
         cy.contains('.styles__Wrapper-sc-1dru8fr-0 > span', 'Funded').should('be.visible');
-        cms.AllowSelfVote();
+        cmsChallengePage.AllowSelfVote();
         cy.contains('Advanced Settings Saved.').should('be.visible');
-        cms.setRegistration();
+        cmsChallengePage.setRegistration();
         cy.contains('PARTICIPANT Registration Form Saved').should('be.visible');
         cy.contains('Registration dates updated with success.').should('be.visible');
-        cms.initHackathon();
+        cmsChallengePage.initHackathon();
         cy.contains('Changed to step: Registration with success.').should('be.visible');
-        cms.createGlobalJury();
+        cmsChallengePage.createGlobalJury();
         cy.contains('added as jury.').should('be.visible');
-        cms.fundGlobalJury();
+        cmsChallengePage.fundGlobalJury();
         cy.contains('VKAI top-up to').should('be.visible');
     });
 
@@ -47,7 +49,7 @@ describe('Regression Test', () => {
     it('should change hackathon to vote step successfully', () => {
         visitCMSPage();
         cy.cmsLogin();
-        cms.changeHackathonStepTo('Voting');
+        cmsChallengePage.changeHackathonStepTo('Voting');
         cy.contains(`Changed to step: Voting with success.`)
     });
 
@@ -61,11 +63,22 @@ describe('Regression Test', () => {
     it('should change hackathon to Results step and finish it successfully', () => {
         visitCMSPage();
         cy.cmsLogin();
-        cms.changeHackathonStepTo('Results');
+        cmsChallengePage.changeHackathonStepTo('Results');
         cy.contains(`Changed to step: Results with success.`);
-        cms.terminateHackathon();
-        cms.getHackathonName().then(name => {
+        cmsChallengePage.terminateHackathon();
+        cmsChallengePage.getHackathonName().then(name => {
             cy.contains('span', `Challenge ${name} closed.`).should('be.visible');
         });
+    });
+
+    it('should create a organization successfully', () => {
+        visitCMSPage();
+        cy.cmsLogin();
+        cmsOrganizationPage.createOrganization();
+        cy.contains('span', 'published with success').should('be.visible');
+        cmsOrganizationPage.editOrganization();
+        cy.contains('span', 'organization updated.');
+        cmsOrganizationPage.addMemberToOrganization();
+        cy.contains('span', 'added to').should('be.visible');
     });
 });
